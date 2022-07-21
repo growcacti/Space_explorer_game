@@ -1,2 +1,3 @@
 # Space_explorer_game
 A game I am working on it  far from finished only has a few features but is coming around finally
+There is a lot of people I like thank that I either borrowed pieces of thier code and stack overflow answsers. it took me a long time to understand bullets and camera views which i am still weak on. It took me a long time to a utilize classes and object oriented programming whicd I still find difficult. So the code will need to be cleaned and refactored, I need to store a copy of this point in time I got something to work, lots of things don.t work or not written completely. fire is mpuse driven the space bar for the projectile class  does not work that is going to be a another weapon later on.
