@@ -12,7 +12,7 @@ WIDTH = 1200
 HEIGHT = 800
 
 bg = bgp.background()
-
+WHITE = (255, 255, 255)
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 
@@ -31,7 +31,7 @@ class Player:
         self.max_velocity = 220
         self.thrust = 150
         self.sim_inertia = 10  # iner
-
+        self.font = pg.font.Font(None, 18)
         self.acceleration = 0.0
         self.rotation = 0.0
         self.camera = Vector2(0, 0)  # Assigned the camera as an attribute.
@@ -60,12 +60,25 @@ class Player:
         self.rect = self.image.get_rect(center=self.rect.center)
         #self.direction = self.angle
         self.direction = pg.Vector2(1, 0).rotate(-self.angle)
-        pg.display.set_caption(str(self.rect.center))
+        pg.display.set_caption("Space Fronteerer")
+ 
+        text1 = self.font.render("X Y position: " + str(self.rect.center), True, WHITE)
+       
+        screen.blit(text1, (WIDTH - 200, HEIGHT - 750))
+    
         origin = (600, 400)
         destination = self.rect.center
-        get_info.info(origin, destination)
-
-
+        sp = abs(vel[0] + vel[1]) * 24545 // 1
+        distance, angle, x_ref, y_ref, op_ang, project =  get_info.info(origin, destination)
+        dist = distance // 1
+        text2 = self.font.render("Distance from Start: " + str(dist), True, WHITE)
+        screen.blit(text2, (WIDTH - 200, HEIGHT - 780))
+        text3 = self.font.render("Angle " + str(angle), True, WHITE)
+        screen.blit(text3, (WIDTH - 200, HEIGHT - 770))
+        text4 = self.font.render("Projection" + str(project), True, WHITE)
+        screen.blit(text4, (WIDTH - 300, HEIGHT - 790))
+        text5 = self.font.render("MPH " + str(sp), True, WHITE)
+        screen.blit(text5, (WIDTH - 200, HEIGHT - 760))
 class Bullet:
     def __init__(self, pos, direction):
         self.x, self.y = pos
@@ -110,7 +123,7 @@ class Projectile(pg.sprite.Sprite):
         self.update(dt)
     def update(self, dt):
         self.pos += self.direction
-        self.pos = get_info.info.project
+        
         
         self.rect.center = self.pos
         if not pg.display.get_surface().get_rect().contains(self.rect):
