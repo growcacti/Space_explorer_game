@@ -7,33 +7,31 @@ from pygame import Surface
 pg.init()
 
 #reduced W an H to use less  memory
-W = 10000 # size of space used for game background
+W = 10000 # size of space used for game world background
 H = 10000 # 2nd surface over screen
 HW = W / 2 # Finding center of game world
 HH = H / 2
-WIDTH = 1200 # view screen settings
-HEIGHT = 800
-#screen = pg.display.set_mode((WIDTH, HEIGHT))
+SCR_WIDTH = 1200 # view screen settings
+SCR_HEIGHT = 800
+#screen = pg.display.set_mode((SCR_WIDTH, SCR_HEIGHT))
 ##pg.display.update()
 def background():  
 
-##    size = int(WIDTH * 10 // 1), int(HEIGHT * 10 // 1)
-##    exsize = int(WIDTH * 20 // 1), int(HEIGHT * 20 // 1)
+##    size = int(SCR_WIDTH * 10 // 1), int(SCR_HEIGHT * 10 // 1)
+##    exsize = int(SCR_WIDTH * 20 // 1), int(SCR_HEIGHT * 20 // 1)
 
 
     sizex = int(W)
     sizey = int(H)
     exsize = (W, H)
-    center_pos=(HW,  HH)
+    center_pos=(HW, HH)
     bg = pg.Surface(exsize)
-   
-    bg_rect = bg.get_rect()
+    
     # make black transparent using colorkey so I can do
     # a screen fill and not cover up everything in black
     # prevents trailing images which drove me crazy for a time
     
-    bg.set_colorkey((0, 0, 0)) 
-    bg.fill((0, 0, 0))
+  
     # Drawing a grid map.
     for x in range(sizex):
         pg.draw.line(bg, (15, 20, 30), (x * 20, 0), (x * 20, sizey), 1)
@@ -51,7 +49,7 @@ def background():
         randy = random.randint(20, 9800)
         randpos = (randx, randy)
         return randpos
-    bg.blit(bg, bg_rect)
+
 
     p1 = pg.image.load("p1.png")
     p1_rect = p1.get_rect(center = rc())
@@ -113,9 +111,7 @@ def background():
 
     p16_rect = p16.get_rect(center = rc())
 
-
-
-
+   
     bg.blit(p1, p1_rect)
     bg.blit(p2, p2_rect)
     bg.blit(p3, p3_rect)
@@ -139,9 +135,9 @@ def background():
 
     return bg        
 def get_random_cor(x, y, objw, objh):
-    cam_rect = pg.Rect(camx, camy, WIDTH, HEIGHT)
-    newx = random.randint((camx - WIDTH), (camx + 2*WIDTH))
-    newy = random.randint((camy - HEIGHT), (camy + 2*HEIGHT))
+    cam_rect = pg.Rect(camx, camy, SCR_WIDTH, SCR_HEIGHT)
+    newx = random.randint((camx - SCR_WIDTH), (camx + 2*SCR_WIDTH))
+    newy = random.randint((camy - SCR_HEIGHT), (camy + 2*SCR_HEIGHT))
     obj_rect = pg.Rect(newx, newy, objW, objh)
     if not objRect.collderect(cam_rect):
         return newx, newy
